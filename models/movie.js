@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
+const { wrongUrl } = require('../utils/constants');
+
 const movieSchema = new mongoose.Schema({
+  movieId: {
+    type: Number,
+    required: true,
+  },
   country: {
     type: String,
     required: true,
@@ -28,7 +34,7 @@ const movieSchema = new mongoose.Schema({
       validator(v) {
         return /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/.test(v);
       },
-      message: 'Передан неверный url',
+      message: wrongUrl,
     },
   },
   trailerLink: {
@@ -38,7 +44,7 @@ const movieSchema = new mongoose.Schema({
       validator(v) {
         return /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/.test(v);
       },
-      message: 'Передан неверный url',
+      message: wrongUrl,
     },
   },
   nameRU: {
@@ -56,7 +62,7 @@ const movieSchema = new mongoose.Schema({
       validator(v) {
         return /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/.test(v);
       },
-      message: 'Передан неверный url',
+      message: wrongUrl,
     },
   },
   owner: {

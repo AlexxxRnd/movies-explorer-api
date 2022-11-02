@@ -6,6 +6,8 @@ const {
   signUp,
 } = require('../middlewares/validation');
 
+const { notFoundString } = require('../utils/constants');
+
 const {
   createUser,
   login,
@@ -18,7 +20,7 @@ router.post('/signup', signUp, createUser);
 router.use(userRoute);
 router.use(movieRoute);
 router.use('*', (req, res, next) => {
-  next(new NotFoundError('Страница не найдена'));
+  next(new NotFoundError(notFoundString));
 });
 
 module.exports = router;

@@ -2,6 +2,7 @@ const { celebrate, Joi } = require('celebrate');
 
 const validator = require('validator');
 const BadRequestError = require('../errors/BadRequestError');
+const { wrongUrl } = require('../utils/constants');
 
 const signIn = celebrate({
   body: Joi.object().keys({
@@ -34,13 +35,13 @@ const createMovieValidation = celebrate({
     description: Joi.string().required(),
     image: Joi.string().required().custom((value) => {
       if (!validator.isURL(value)) {
-        throw new BadRequestError('Неверный URL адрес');
+        throw new BadRequestError(wrongUrl);
       }
       return value;
     }),
     trailerLink: Joi.string().required().custom((value) => {
       if (!validator.isURL(value)) {
-        throw new BadRequestError('Неверный URL адрес');
+        throw new BadRequestError(wrongUrl);
       }
       return value;
     }),
@@ -48,10 +49,11 @@ const createMovieValidation = celebrate({
     nameEN: Joi.string().required(),
     thumbnail: Joi.string().required().custom((value) => {
       if (!validator.isURL(value)) {
-        throw new BadRequestError('Неверный URL адрес');
+        throw new BadRequestError(wrongUrl);
       }
       return value;
     }),
+    movieId: Joi.number().required(),
   }),
 });
 
